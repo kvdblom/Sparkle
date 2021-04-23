@@ -1,0 +1,40 @@
+#!/bin/env python3 
+
+import sys
+from pathlib import Path
+
+# Adding parent directory to get access to the sparkle module
+# May be removed when spakle is installed system-wide
+sys.path.insert(0, str(Path(__file__).parent.parent.absolute()))
+
+from sparkle.cliparser import SparkleParser
+from sparkle.cliparser import InstanceParser
+from sparkle.cliparser import ComputeParser
+
+
+
+if __name__ == "__main__":
+    sparkleparser = SparkleParser(
+        conflict_handler="resolve",
+    )
+
+    subparser = sparkleparser.add_subparsers(
+        help = "commands",
+        dest = "command"
+        )
+
+    for parser in [ComputeParser, 
+                   InstanceParser,]:
+        subparser.add_parser(
+            name = parser.name,
+            parents = [parser(), ],
+            description = parser.description,
+            conflict_handler = "resolve"
+        )
+
+    args = sparkleparser.parse_args()
+
+    print(args)
+    
+    
+
