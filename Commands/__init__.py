@@ -1,1 +1,1 @@
-from .  import sparkle_help
+#from .  import sparkle_help

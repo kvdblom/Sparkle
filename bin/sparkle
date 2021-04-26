@@ -7,34 +7,25 @@ from pathlib import Path
 # May be removed when spakle is installed system-wide
 sys.path.insert(0, str(Path(__file__).parent.parent.absolute()))
 
-from sparkle.cliparser import SparkleParser
-from sparkle.cliparser import InstanceParser
-from sparkle.cliparser import ComputeParser
+# Main parser
+from sparkle.cli.mainparser import MainParser
 
-
+# Subcommands
+from sparkle.cli.compute import Compute
+from sparkle.cli.instance import Instance
 
 if __name__ == "__main__":
-    sparkleparser = SparkleParser(
-        conflict_handler="resolve",
+    mainparser = MainParser(
+        subparsers=[
+            Compute(), 
+            Instance(),
+        ],
     )
 
-    subparser = sparkleparser.add_subparsers(
-        help = "commands",
-        dest = "command"
-        )
+    args = mainparser.parse_args()
 
-    for parser in [ComputeParser, 
-                   InstanceParser,]:
-        subparser.add_parser(
-            name = parser.name,
-            parents = [parser(), ],
-            description = parser.description,
-            conflict_handler = "resolve"
-        )
-
-    args = sparkleparser.parse_args()
-
-    print(args)
-    
-    
-
+    if args.command is None:
+        # no command, print help
+        mainparser.print_help()
+    else:
+        mainparser.dispatch(args)
