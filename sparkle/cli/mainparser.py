@@ -22,4 +22,4 @@ class MainParser(ArgumentParser):
             parser.add_parsing(sub)
 
     def dispatch(self, args):
-        self.subparsers[args.command].execute(args)
+        self.subparsers[args.command].dispatch(args)

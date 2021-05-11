@@ -112,7 +112,7 @@ if __name__ == r'__main__':
 
 	# Set validation to wait until configuration is done
 	if(validate):
-		scsh.generate_validation_callback_slurm_script(solver, instance_set_train, instance_set_test, configure_jobid)
+		scsh.generate_validation_callback_slurm_ddscript(solver, instance_set_train, instance_set_test, configure_jobid)
 
 	if(ablation):
 		scsh.generate_ablation_callback_slurm_script(solver, instance_set_train, instance_set_test, configure_jobid)

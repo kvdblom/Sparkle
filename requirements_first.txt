@@ -1,6 +1,10 @@
 Cython==0.29.21
 numpy==1.19.5
 
+# Command line and config file parsing
+docopt
+schema
+
 
 # Requirements for sparkle documentation build
 sphinx

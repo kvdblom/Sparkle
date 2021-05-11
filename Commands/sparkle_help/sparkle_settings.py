@@ -18,13 +18,14 @@ class PerformanceMeasure(Enum):
 	#QUALITY_RELATIVE = 2 # TODO: Add when this functionality is implemented
 
 
-	def from_str(performance_measure):
-		if performance_measure == 'RUNTIME':
-			performance_measure = PerformanceMeasure.RUNTIME
-		elif performance_measure == 'QUALITY_ABSOLUTE' or performance_measure == 'QUALITY':
-			performance_measure = PerformanceMeasure.QUALITY_ABSOLUTE
-	
-		return performance_measure
+	@staticmethod
+	def from_str(performance_measure: str):
+		# Will rise an exception if the str is not valid
+		# The dict could be cached in the class, but not in an Enum. Maybe in 3.10.
+		return {"runtime": PerformanceMeasure.RUNTIME,
+			    "quality": PerformanceMeasure.QUALITY_ABSOLUTE,
+			     "quality_absolute": PerformanceMeasure.QUALITY_ABSOLUTE,
+		}[performance_measure.lower()]
 
 
 class SolutionVerifier(Enum):
@@ -32,13 +33,15 @@ class SolutionVerifier(Enum):
 	SAT = 1
 
 
+	@staticmethod
 	def from_str(verifier):
 		if verifier == 'NONE':
-			verifier = SolutionVerifier.NONE
+			return SolutionVerifier.NONE
 		elif verifier == 'SAT':
 			verifier = SolutionVerifier.SAT
-
-		return verifier
+		else:
+			# Return None if not valid
+			pass
 
 
 class SettingState(Enum):

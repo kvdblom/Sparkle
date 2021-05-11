@@ -1,11 +1,14 @@
-from argparse import ArgumentParser
+# Python libs
 from dataclasses import dataclass
+from argparse import ArgumentParser
 
-@dataclass
+
 class Command:
-    name: str          # The name of the command
-    description: str   # The description of the command
-    help: str          # Command help
+    def __init__(self, name, description, help, actions=[]):
+        self.name = name
+        self.description = description
+        self.help = help
+        self.actions = {action.name: action for action in actions}
 
     def add_parsing(self, parser: ArgumentParser):
         self.parser = parser
@@ -14,25 +17,25 @@ class Command:
             dest = "action",
             )
 
-        for act in self.get_actions():
-            act.add_parsing(
+        for name, action in self.actions.items():
+            action.add_parsing(
                 subparsers.add_parser(
-                    name = act.name,
-                    description = act.description,
+                    name = name,
+                    description = action.description,
                     conflict_handler = "resolve"
                 ))
 
-    #TODO: Change type annotation to a more generic type and including CliAction
-    def get_actions(self) -> list:  
-        return list()
-
-
-    def run(self, args):
-        pass
+    def dispatch(self, args):
+        if args.action is None:
+            self.no_action(args)
+        elif args.action not in self.actions:
+            print("Error. Non valid action.")
+        else:
+            self.actions[args.action].do(args)
 
     def no_action(self, args):
         # By default, if no action is set, show help.
-        pass
+        self.parser.print_help()
 
 
 @dataclass
@@ -43,5 +46,6 @@ class Action:
     def add_parsing(self, parser: ArgumentParser):
         pass
 
-    def actions(self, args):
-        print(f"Action no implemented for '{args.command} {args.action}'.")
+    def do(self, args):
+        print(f"Action not implemented for 'sparkle {args.command} {args.action}'.")
+        print(args)

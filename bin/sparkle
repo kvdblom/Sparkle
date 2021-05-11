@@ -1,31 +1,73 @@
 #!/bin/env python3 
+"""Sparkle: A PbO-based Multi-agent Problem-solving Platform
 
+usage: sparkle [--version] [--help] COMMAND [ARGS...]
+
+options:
+   -h, --help   Show this help 
+   --version    Show version
+
+The Sparkle commands are:
+   instance     Add file contents to the index
+   solver       List, create, or delete branches
+   help         Show help on command
+
+See 'sparkle help COMMAND' for more information on a specific command.
+"""
+
+# Python standard libs
 import sys
 from pathlib import Path
+from subprocess import call
+
+# Python libs
+from docopt import docopt
+
+# Where the executables are
+binpath = Path(__file__).parent.absolute()
 
 # Adding parent directory to get access to the sparkle module
-# May be removed when spakle is installed system-wide
-sys.path.insert(0, str(Path(__file__).parent.parent.absolute()))
+# May be removed when spakle is installed
+sys.path.insert(0, str(binpath.parent))
 
-# Main parser
-from sparkle.cli.mainparser import MainParser
+# Sparkle libs
+# If needed, the subparser could be imported only 
+# when needed to speed-up spakle startup.
+from sparkle.cli import instance
+from sparkle.cli import solver
 
-# Subcommands
-from sparkle.cli.compute import Compute
-from sparkle.cli.instance import Instance
 
 if __name__ == "__main__":
-    mainparser = MainParser(
-        subparsers=[
-            Compute(), 
-            Instance(),
-        ],
-    )
+    args = docopt(__doc__,
+                  version="Sparkle version 1.2",
+                  options_first=True)
 
-    args = mainparser.parse_args()
+    commands = {
+        "instance": instance,
+        "solver": solver,
+    }
 
-    if args.command is None:
-        # no command, print help
-        mainparser.print_help()
+    if (command := commands.get(args["COMMAND"], False)):
+        # Creating a argv for the command
+        argv = [args["COMMAND"]] + args["ARGS"]
+        args = docopt(command.__doc__, argv=argv)
+        print(args)
+    elif args["COMMAND"] == "help":
+        exit()
     else:
-        mainparser.dispatch(args)
+        exit("%r is not a sparkle command. See 'sparkle help'." % args['COMMAND'])
+
+    #mainparser = MainParser(
+    #    subparsers=[
+    #        instance.Parser(),
+    #        solver.Parser(),
+    #    ],
+    #)
+
+    #args = mainparser.parse_args()
+
+    #if args.command is None:
+    #    # no command, print help
+    #    mainparser.print_help()
+    #else:
+    #    mainparser.dispatch(args)
