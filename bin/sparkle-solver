@@ -1,0 +1,65 @@
+#!/bin/env python3 
+"""
+Usage:
+    sparkle solver add [-n SOLVER] [--non-deterministic | --deterministic] PATH
+    sparkle solver show [SOLVER]
+    sparkle solver remove SOLVER 
+    sparkle solver configure [--verbose] [--runs RUNS] [--budget BUDGET]
+        [--cutoff CUTOFF]  [--metric METRIC] [--validate] [--ablation]
+        [--instance INSTANCE... | --all-instances]  [--test TEST...]  
+        [--solver SOLVER... | --all-solver] [--configfile CONF]
+    sparkle solver validate [--verbose] [--runs RUNS] [--budget BUDGET]
+        [--cutoff CUTOFF]  [--metric METRIC] [--validate] [--ablation]
+        [--instance INSTANCE... | --all-instances]  [--test TEST...]  
+        [--solver SOLVER... | --all-solver] [--configfile CONF]
+
+-s SOLVER, --solver SOLVER        Name of the solver(s) to configure
+--all-solver                      Configure all the solvers in the workspace
+-n SOLVER, --name SOLVER          Solver name. Default to the solver path stem 
+--non-deterministic               Set the solver to be non deterministic.
+--deterministic                   Set the solver to be deterministic [default].
+-i INSTANCE, --instance INSTANCE  The instance set on which to train
+--all-instance                    Train on all available instances (excluding 
+                                  test instances)
+-t TEST, --test TEST              The instance set on which to test
+-m  METRIC, --metric METRIC       The metric to use. [default: runtime]
+-r RUNS, --runs RUNS              Number of solver run
+-b BUDGET, --budget BUDGET        Budget per run
+-c CUTOFF, --cutoff CUTOFF        Target cutoff time
+--validate                        Validate after configuration
+--ablation                        Run ablation after configuration.
+-v, --verbose                     Verbose output 
+-h, --help                        Show help 
+"""
+
+# Python libs
+from argparse import ArgumentParser
+
+# Python libs
+from docopt import docopt
+
+if __name__ == "__main__":
+    args = docopt(__doc__)
+
+    if args["add"]:
+        #TODO: Implement `solver add`
+        print("`solver add` not implemented")
+        print(args)
+    elif args["show"]:
+        #TODO: Implement `solver show`
+        print("`solver show` not implemented")
+        print(args)
+    elif args["remove"]:
+        #TODO: Implement `solver remove`
+        print("`solver remove` not implemented")
+        print(args)
+    elif args["configure"]:
+        #TODO: Implement `solver configure`
+        print("`solver configure` not implemented")
+        print(args)
+    elif args["validate"]:
+        #TODO: Implement `solver validate`
+        print("`solver validate` not implemented")
+        print(args)
+    else:
+        exit(__doc__)

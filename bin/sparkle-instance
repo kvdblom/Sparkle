@@ -1,0 +1,41 @@
+#!/bin/env python3 
+""" sparkle-instance 
+
+usage: 
+    sparkle instance add [--name INSTANCE] PATH
+    sparkle instance show [INSTANCE]
+    sparkle instance remove INSTANCE 
+    sparkle instance [--help]
+
+-n INSTANCE, --name INSTANCE    Instance name. If no name is given the path
+                                stem is used
+-l, --link                      Create symbolic links instead of copying files
+-v, --verbose                   Verbose output 
+-h, --help                      Show help 
+"""
+#NOTE: Should we allow to add multiple paths at once? If so, are they grouped? What about the name?
+#TODO: Add a `--link` option, or not?
+
+# Python libs
+from argparse import ArgumentParser
+
+# Python libs
+from docopt import docopt
+
+if __name__ == "__main__":
+    args = docopt(__doc__)
+
+    if args["add"]:
+        #TODO: Implement `instance add`
+        print("`instance add` not implemented")
+        print(args)
+    elif args["show"]:
+        #TODO: Implement `instance show`
+        print("`instance show` not implemented")
+        print(args)
+    elif args["remove"]:
+        #TODO: Implement `instance remove`
+        print("`instance remove` not implemented")
+        print(args)
+    else:
+        exit(__doc__)

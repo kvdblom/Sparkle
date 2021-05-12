@@ -1,0 +1,30 @@
+#!/bin/env python3 
+""" sparkle-ablation
+
+usage: 
+    sparkle ablation run [-v]
+    sparkle ablation [-h]
+
+-h, --help                      Show help 
+-v, --verbose                   Verbose output 
+"""
+#TODO: Define the `ablation` interface. => look at ablation branch
+
+# Python libs
+from argparse import ArgumentParser
+
+# Python libs
+from docopt import docopt
+
+def main():
+    pass
+
+if __name__ == "__main__":
+    args = docopt(__doc__)
+
+    if args["run"]:
+        #TODO: Implement `ablation run`
+        print(args)
+        exit("ablation run")
+    else:
+        exit(__doc__)

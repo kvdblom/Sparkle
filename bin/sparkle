@@ -1,40 +1,38 @@
 #!/bin/env python3 
 """Sparkle: A PbO-based Multi-agent Problem-solving Platform
 
-usage: sparkle [--version] [--help] COMMAND [ARGS...]
+usage: 
+    sparkle [--version] [--help] [COMMAND] [ARGS...]
 
 options:
    -h, --help   Show this help 
    --version    Show version
 
 The Sparkle commands are:
-   instance     Add file contents to the index
-   solver       List, create, or delete branches
-   help         Show help on command
+   init         Create bare or cloned Sparkle workspace
+   instance     Manage the instances of the workspace
+   solver       Manage, run and configure solvers
+   feature      Manage and run feature extractors
+   portfolio    Create and run portfolio
+   ablation     Run ablation calculation
+   record       Load and save record
+   report       Create report on calculations
 
-See 'sparkle help COMMAND' for more information on a specific command.
+See 'sparkle COMMAND --help' for more information on a specific command.
 """
 
+"""Simple way to extract the commands from the usage description"""
+def commands_from_doc(doc=__doc__):
+    a = doc.find("commands are:\n") + 14
+    b = doc.find("\n\n", a)
+    return [s.split()[0] for s in doc[a:b].split("\n")]
+
 # Python standard libs
-import sys
 from pathlib import Path
 from subprocess import call
 
 # Python libs
 from docopt import docopt
-
-# Where the executables are
-binpath = Path(__file__).parent.absolute()
-
-# Adding parent directory to get access to the sparkle module
-# May be removed when spakle is installed
-sys.path.insert(0, str(binpath.parent))
-
-# Sparkle libs
-# If needed, the subparser could be imported only 
-# when needed to speed-up spakle startup.
-from sparkle.cli import instance
-from sparkle.cli import solver
 
 
 if __name__ == "__main__":
@@ -42,32 +40,14 @@ if __name__ == "__main__":
                   version="Sparkle version 1.2",
                   options_first=True)
 
-    commands = {
-        "instance": instance,
-        "solver": solver,
-    }
-
-    if (command := commands.get(args["COMMAND"], False)):
+    if args["COMMAND"] in commands_from_doc():
         # Creating a argv for the command
         argv = [args["COMMAND"]] + args["ARGS"]
-        args = docopt(command.__doc__, argv=argv)
-        print(args)
-    elif args["COMMAND"] == "help":
-        exit()
+        # Where the executables are
+        binpath = Path(__file__).parent.absolute()
+        # Call the subcommand executable
+        exit(call([str(binpath / f"sparkle-{args['COMMAND']}")] + argv))
+    elif args["COMMAND"] is None:
+        exit(__doc__)
     else:
-        exit("%r is not a sparkle command. See 'sparkle help'." % args['COMMAND'])
-
-    #mainparser = MainParser(
-    #    subparsers=[
-    #        instance.Parser(),
-    #        solver.Parser(),
-    #    ],
-    #)
-
-    #args = mainparser.parse_args()
-
-    #if args.command is None:
-    #    # no command, print help
-    #    mainparser.print_help()
-    #else:
-    #    mainparser.dispatch(args)
+        exit(f"Invalid '{args['COMMAND']}' command. See 'sparkle --help'.")

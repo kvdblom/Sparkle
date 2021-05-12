@@ -1,0 +1,47 @@
+#!/bin/env python3 
+""" sparkle-feature
+
+usage: 
+    sparkle feature add [--name FEATURE] PATH
+    sparkle feature show [FEATURE]
+    sparkle feature remove FEATURE
+    sparkle feature compute FEATURE ARGS... 
+    sparkle feature [--help]
+
+-n FEATURE, --name FEATURE      Instance name
+-v, --verbose                   Verbose output 
+-h, --help                      Show help 
+"""
+#NOTE: Should we allow to add multiple features at the same time?
+#TODO: sparkle feature help description
+#TODO: Define the feature compute interface
+#TODO: Add a `--link` option, or not?
+
+# Python libs
+from argparse import ArgumentParser
+
+# Python libs
+from docopt import docopt
+
+if __name__ == "__main__":
+    args = docopt(__doc__)
+
+
+    if args["add"]:
+        #TODO: Implement `feature add`
+        print("`feature add` not implemented")
+        print(args)
+    elif args["show"]:
+        #TODO: Implement `feature show`
+        print("`feature show` not implemented")
+        print(args)
+    elif args["remove"]:
+        #TODO: Implement `feature remove`
+        print("`feature remove` not implemented")
+        print(args)
+    elif args["compute"]:
+        #TODO: Implement `feature compute`
+        print("`feature compute` not implemented")
+        print(args)
+    else:
+        exit(__doc__)

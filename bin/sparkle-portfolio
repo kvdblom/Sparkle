@@ -1,0 +1,42 @@
+#!/bin/env python3 
+""" sparkle-instance 
+
+usage: 
+    sparkle portfolio show
+    sparkle portfolio construct [--quality | --runtime] [--no-compute] 
+    sparkle portfolio compute [--portfolio-selector]  [--marginal-contribution]
+    sparkle portfolio run
+    sparkle portfolio [--help]
+
+-n PORTFOLIO, --name PORTFOLIO  Portfolio name
+-h, --help                      Show help 
+"""
+
+# Python libs
+from argparse import ArgumentParser
+
+# Python libs
+from docopt import docopt
+
+
+if __name__ == "__main__":
+    args = docopt(__doc__)
+
+    if args["show"]:
+        #TODO: Implement `portfolio show`
+        print("`portfolio add` not implemented")
+        print(args)
+    elif args["construct"]:
+        #TODO: Implement `portfolio construct`
+        print("`portfolio show` not implemented")
+        print(args)
+    elif args["compute"]:
+        #TODO: Implement `portfolio compute`
+        print("`portfolio compute` not implemented")
+        print(args)
+    elif args["run"]:
+        #TODO: Implement `portfolio run`
+        print("`portfolio run` not implemented")
+        print(args)
+    else:
+        exit(__doc__)

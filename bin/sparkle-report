@@ -1,0 +1,28 @@
+#!/bin/env python3 
+""" sparkle-instance 
+
+usage: 
+    sparkle instance list [-v]
+    sparkle instance add [-n INSTANCE -lv] PATH... 
+    sparkle instance show [-v] INSTANCE 
+    sparkle instance rm [-v] INSTANCE 
+    sparkle instance -h
+
+-h, --help                      Show help 
+-l, --link                      Create symbolic links instead of copying files.
+-n INSTANCE, --name INSTANCE    Instance name. 
+-v, --verbose                   Verbose output 
+"""
+
+# Python libs
+from argparse import ArgumentParser
+
+# Python libs
+from docopt import docopt
+
+def main():
+    pass
+
+if __name__ == "__main__":
+    args = docopt(__doc__)
+    print(args)

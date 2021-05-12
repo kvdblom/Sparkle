@@ -1,0 +1,38 @@
+#!/bin/env python3 
+""" sparkle-instance 
+
+usage: 
+    sparkle record load
+    sparkle record save
+    sparkle record remove
+    sparkle record [--help]
+
+-h, --help                      Show help 
+"""
+#TODO: Define the `sparkle record interface`
+
+# Python libs
+from argparse import ArgumentParser
+
+# Python libs
+from docopt import docopt
+
+if __name__ == "__main__":
+    args = docopt(__doc__)
+
+    if args["load"]:
+        #TODO: Implement `record load`
+        print("`record load` not implemented")
+        print(args)
+    elif args["save"]:
+        #TODO: Implement `record save`
+        print("`record save` not implemented")
+        print(args)
+    elif args["remove"]:
+        #TODO: Implement `record remove`
+        print("`record remove` not implemented")
+        print(args)
+    else:
+        exit(__doc__)
+
+

@@ -1,0 +1,31 @@
+#!/bin/env python3 
+"""
+usage: 
+    sparkle init PATH [--clone CLONE] [--link] [--force]
+    sparkle init [--help] 
+
+Create a new sparkle workspace using the default configuration or from
+another Sparkle workspace. 
+
+PATH                     A path where to create the workspace. If the directory
+                         do not exist it will be created, othewise it must be 
+                         empty
+-f, --force              Force the initialisation on an non empty directory
+-c CLONE, --clone CLONE  Clone another Sparkle workspace in the new workspace
+-l, --link               Create link instead of copues when possible
+-h, --help               Show help 
+"""
+
+# Python libs
+from argparse import ArgumentParser
+
+# Python libs
+from docopt import docopt
+
+if __name__ == "__main__":
+    args = docopt(__doc__)
+
+    if args["PATH"] is not None:
+        exit("`sparkle init` not implemented yet")
+    else:
+        exit(__doc__)
