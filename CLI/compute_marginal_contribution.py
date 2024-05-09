@@ -37,6 +37,12 @@ def parser_function() -> argparse.ArgumentParser:
               " in file for for the current selector"),
     )
     parser.add_argument(
+        "--selector-timeout",
+        type=int,
+        default=sgh.settings.DEFAULT_portfolio_construction_timeout,
+        help="Cuttoff time (in seconds) for the algorithm selector construction"
+    )
+    parser.add_argument(
         "--performance-measure",
         choices=PerformanceMeasure.__members__,
         default=sgh.settings.DEFAULT_general_sparkle_objective.PerformanceMeasure,

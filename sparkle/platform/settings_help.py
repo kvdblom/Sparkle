@@ -78,6 +78,8 @@ class Settings:
     DEFAULT_config_budget_per_run = 600
     DEFAULT_config_number_of_runs = 25
 
+    DEFAULT_portfolio_construction_timeout = 172000
+
     DEFAULT_slurm_number_of_runs_in_parallel = 25
     DEFAULT_slurm_clis_per_node = 8
 
